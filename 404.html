@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - 页面未找到</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+    }
+  </style>
+  <style>
+    body {
+      background: radial-gradient(circle at center, #2d1b41 0%, #0f0f0f 100%);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center text-white font-sans overflow-hidden">
+  <div class="text-center p-8 max-w-md mx-auto">
+    <div>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-12 whitespace-nowrap">404 NOT FOUND</h1>
+    </div>
+    
+    <div class="mb-16">
+      <p class="text-gray-300 text-sm">抱歉，访问页面不存在</p>
+    </div>
+    
+    <div class="w-full">
+      <a href="/" class="block w-full bg-gradient-to-r from-purple-600 to-blue-500 text-white font-medium py-4 px-8 transition-all duration-300 hover:shadow-lg hover:from-purple-500 hover:to-blue-400 text-center">
+        查看最新发行
+      </a>
+    </div>
+  </div>
+</body>
+</html>

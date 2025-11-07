@@ -28,5 +28,20 @@
       "applemusic": "https://music.apple.com/cn/album/%E5%BF%83%E6%9C%89%E7%81%B5%E7%8A%80/1845540519",
       "soundcloud": "https://on.soundcloud.com/CiUDWRwMwTjHwT4rEG"
     }
+  },
+  {
+    "label_name": "Iceflame",
+    "label_id": 1,
+    "artist": "Iceflame",
+    "song_number": 1,
+    "song_title": "Light Shines Over",
+    "cover": "Light Shines Over.jpg",
+    "links": {
+      "qqmusic": "#",
+      "spotify": "#",
+      "netease": "#",
+      "applemusic": "#",
+      "soundcloud": "#"
+    }
   }
 ]

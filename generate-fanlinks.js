@@ -3,12 +3,14 @@
 
 const fs = require('fs');
 const path = require('path');
+const { execSync, spawn } = require('child_process');
 
 // 配置常量
 const SONGS_JSON_PATH = path.join(__dirname, 'songs.json');
 const TEMPLATE_PATH = path.join(__dirname, 'index.html');
 const COVER_DIR = path.join(__dirname, 'cover');
 const DIST_DIR = path.join(__dirname, 'artist');
+const OPTIMIZE_SCRIPT_PATH = path.join(__dirname, 'optimize-images.js');
 
 // 确保目录存在
 function ensureDirectoryExists(dirPath) {
@@ -155,7 +157,7 @@ function generateHtmlContent(template, song) {
   // 构建封面图片路径
   const coverPath = `../../cover/${encodeURIComponent(song.cover)}`;
   
-  // 构建脚本内容
+  // 构建脚本内容 - 使用优化后的脚本结构
   const newScriptContent = `  <script>
     // 歌曲信息配置对象
     const songConfig = {
@@ -179,10 +181,35 @@ function generateHtmlContent(template, song) {
   // 替换脚本块 - 使用更精确的正则表达式匹配整个script标签
   let content = template.replace(/<script>[\s\S]*?const songConfig[\s\S]*?<\/script>/, newScriptContent);
   
-  // 替换页面标题
-  content = content.replace(/<title>.*?<\/title>/, `<title>${song.song_title} - ${song.artist} | Fanlink</title>`);
+  // 替换页面标题为"艺人名 - 歌曲名"格式 - 同时包含meta description
+  content = content.replace(/<title>.*?<\/title>/, `<title>${song.artist} - ${song.song_title}</title>
+  <meta name="description" content="${song.artist} - ${song.song_title} 音乐聚合页">`);
+  
+  // 移除不必要的Font Awesome引用（如果存在）
+  content = content.replace(/<!-- Font Awesome -->\s*<link href="https:\/\/cdn.jsdelivr.net\/npm\/font-awesome@4.7.0\/css\/font-awesome.min.css" rel="stylesheet">/, '');
   
   return content;
+}
+
+// 优化并复制封面图片
+function optimizeAndCopyCoverImages() {
+  // 检查优化脚本是否存在
+  if (fs.existsSync(OPTIMIZE_SCRIPT_PATH)) {
+    try {
+      console.log('开始优化封面图片...');
+      // 使用子进程运行优化脚本，使用引号包裹路径以处理空格
+      const result = execSync(`node "${OPTIMIZE_SCRIPT_PATH}"`, { encoding: 'utf8' });
+      console.log(result);
+      return true;
+    } catch (error) {
+      console.error('图片优化过程中出错:', error.stderr || error.message);
+      console.log('将使用原始复制方法作为备用...');
+      return false;
+    }
+  } else {
+    console.log('图片优化脚本不存在，将使用原始复制方法');
+    return false;
+  }
 }
 
 // 复制封面图片到dist目录（可选）
@@ -242,6 +269,19 @@ function generateFanlinks() {
   
   // 确保dist目录存在
   ensureDirectoryExists(DIST_DIR);
+  
+  // 优化封面图片
+  const optimized = optimizeAndCopyCoverImages();
+
+  // 如果优化失败，回退到原始复制方法
+  if (!optimized) {
+    console.log('复制封面图片...');
+    songsWithResolvedConflicts.forEach(song => {
+      if (song.cover) {
+        copyCoverImageIfNeeded(song);
+      }
+    });
+  }
   
   // 读取模板
   const template = readTemplate();

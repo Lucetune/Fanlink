@@ -306,21 +306,46 @@
         const favicon = document.getElementById('favicon');
         const appleTouchIcon = document.getElementById('apple-touch-icon');
         
+        // 获取封面图片路径
+        let iconPath = songConfig.coverImage;
+        
         // 确保元素存在再设置href属性
         if (favicon) {
-          favicon.href = songConfig.coverImage;
+          favicon.href = iconPath;
         }
         if (appleTouchIcon) {
-          appleTouchIcon.href = songConfig.coverImage;
+          appleTouchIcon.href = iconPath;
         }
         
         // 添加错误处理，确保图片加载成功
         const testImage = new Image();
         testImage.onerror = function() {
           console.warn('标签页图标加载失败，尝试修复路径...');
-          // 尝试使用相对于当前页面的路径
-          const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
-          const fixedPath = basePath + '/../../../' + songConfig.coverImage.split('../../')[1];
+          
+          // 方法1: 尝试使用相对于站点根目录的路径
+          let fixedPath;
+          
+          // 检查路径是否已经是绝对路径或已经包含http(s)
+          if (!iconPath.startsWith('http') && !iconPath.startsWith('/')) {
+            // 获取当前页面路径深度
+            const pathParts = window.location.pathname.split('/').filter(Boolean);
+            // 计算需要的../数量
+            const upLevels = pathParts.length - 1; // 减去1因为最后一个部分通常是文件名
+            const upString = '../'.repeat(upLevels);
+            
+            // 处理不同格式的路径
+            if (iconPath.startsWith('../../')) {
+              // 原始逻辑处理
+              fixedPath = upString + iconPath.substring(6); // 移除../../
+            } else {
+              // 直接使用相对路径
+              fixedPath = upString + iconPath;
+            }
+          } else {
+            fixedPath = iconPath;
+          }
+          
+          console.log('尝试修复后的路径:', fixedPath);
           
           if (favicon) {
             favicon.href = fixedPath;
@@ -328,8 +353,15 @@
           if (appleTouchIcon) {
             appleTouchIcon.href = fixedPath;
           }
+          
+          // 再次测试修复后的路径
+          const testFixedImage = new Image();
+          testFixedImage.onerror = function() {
+            console.error('标签页图标修复失败，使用默认图标');
+          };
+          testFixedImage.src = fixedPath;
         };
-        testImage.src = songConfig.coverImage;
+        testImage.src = iconPath;
       }
       
       // 直接执行设置图标，不再使用异步函数

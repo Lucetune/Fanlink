@@ -5,37 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="音乐聚合链接页">
   <meta name="theme-color" content="#0f0f0f">
-  <!-- 动态标签页图标 -->
-  <link id="favicon" rel="icon" type="image/png" href="" sizes="32x32">
-  <link id="apple-touch-icon" rel="apple-touch-icon" type="image/png" href="" sizes="180x180">
-  <!-- 预连接 -->
-  <link rel="preconnect" href="https://cdn.tailwindcss.com">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <!-- 预加载字体 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="preload" as="font" crossorigin>
-  <title>Pingoal & BCC - 心有灵犀</title>
-  <meta name="description" content="Pingoal & BCC - 心有灵犀 音乐聚合页">
-  
-  <!-- 多歌曲支持说明 -->
-  <!-- 此模板支持为每首歌创建单独的聚合页，通过文件夹结构实现URL访问 -->
-  <!-- 1. 使用create-song-page.js脚本自动为每首歌创建独立页面: node create-song-page.js -->
-  <!-- 2. 每首歌的页面将在独立文件夹中，如fan.lucetune.com/astral-line/ -->
-  <!-- 3. 所有歌曲共享同一个cover文件夹中的图片资源 -->
-  <!-- 4. 文件夹结构示例:
-       lucetune fanlink/
-       ├── cover/                   # 所有歌曲的封面图片
-       │   ├── Astral Line 5.jpg
-       │   └── 其他歌曲封面.jpg
-       ├── songs/                   # 所有歌曲页面的统一存放目录
-       │   ├── astral-line/         # 特定歌曲的文件夹
-       │   │   └── index.html       # 该歌曲的聚合页
-       │   └── another-song/        # 另一首歌的文件夹
-       │       └── index.html
-       ├── index.html               # 主模板文件
-       └── create-song-page.js      # 页面生成工具脚本
-  -->
+  <!-- 根域名重定向逻辑 - 仅在访问根域名时跳转到404页面 -->
     <script>
     // 歌曲信息配置对象
     const songConfig = {

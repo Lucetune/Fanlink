@@ -1,26 +1,28 @@
+chcp 65001 >nul
 @echo off
-echo ========================================
-echo  Lucetune Fanlink 自动上传脚本
-echo  目标分支：test-fanlink
-echo ========================================
-echo.
+REM ========================================
+REM Lucetune Fanlink 自动上传脚本 - test分支
+REM ========================================
 
-REM 切换到脚本所在目录
-cd /d "%~dp0"
+REM 进入你的本地仓库
+cd /d "C:\(A) Document\lucetune fanlink\Fanlink"
 
-REM 切换分支
-git switch test-fanlink
+REM 确保在 test-fanlink 分支
+git checkout test-fanlink
 
 REM 添加所有更改
-git add .
+git add -A
 
-REM 提交（自动生成时间戳备注）
-git commit -m "Auto update on %date% %time%"
+REM 提交，时间戳自动生成
+for /f "tokens=2-4 delims=/- " %%a in ('date /t') do set mydate=%%c/%%a/%%b
+for /f "tokens=1-2 delims=: " %%a in ('time /t') do set mytime=%%a:%%b
+git commit -m "Auto update on %mydate% %mytime%"
 
-REM 推送到 GitHub
-git push origin test-fanlink
+REM 强制推送到远程 test-fanlink
+git push -f origin test-fanlink
 
 echo.
-echo ✅ 上传完成！
-echo.
+echo ========================================
+echo 上传完成!
+echo ========================================
 pause

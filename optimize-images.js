@@ -137,6 +137,20 @@ async function optimizeImages() {
         
         console.log(`\n处理: ${file}`);
         
+        // 检查文件是否已存在且未修改
+        const sourceStats = fs.statSync(sourcePath);
+        if (fs.existsSync(outputPath)) {
+            const destStats = fs.statSync(outputPath);
+            // 简单的缓存机制：如果目标文件已存在且源文件未修改，则跳过优化
+            if (sourceStats.mtimeMs <= destStats.mtimeMs) {
+                console.log(`  ${file} 已优化且未修改，跳过`);
+                // 仍然统计文件大小
+                totalOriginalSize += sourceStats.size;
+                totalNewSize += destStats.size;
+                continue;
+            }
+        }
+        
         if (useSharp) {
             await optimizeImageWithSharp(sourcePath, outputPath);
         } else {

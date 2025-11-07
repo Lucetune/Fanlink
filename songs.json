@@ -1,0 +1,32 @@
+[
+  {
+    "label_name": "Signal-Lines",
+    "label_id": 1,
+    "artist": "澪暗",
+    "song_number": 1,
+    "song_title": "Astral Line",
+    "cover": "Astral Line 5.jpg",
+    "links": {
+      "qqmusic": "https://i.y.qq.com/v8/playsong.html?songid=612964086&songtype=0#webchat_redirect",
+      "spotify": "https://open.spotify.com/track/6dtTieL45tM5oKbBNv49J3?si=7bbea280cd4e447c",
+      "netease": "https://music.163.com/album?id=288841771&uct2=U2FsdGVkX18ZepsqcKD01Z7L/XN8924++4MqLWWLsQg=",
+      "applemusic": "https://music.apple.com/",
+      "soundcloud": "https://soundcloud.com/lingan-sc/astral-line"
+    }
+  },
+    {
+    "label_name": "LBD-Records",
+    "label_id": 1,
+    "artist": "Pingoal & BCC",
+    "song_number": 1,
+    "song_title": "心有灵犀",
+    "cover": "心有灵犀.jpg",
+    "links": {
+      "qqmusic": "https://c6.y.qq.com/base/fcgi-bin/u?__=f6G4f2URJyHu",
+      "spotify": "https://open.spotify.com/artist/4tw2rfHbRy0QhijAG7kII1?si=jdqo_h2BSqe-OahAd3nqRw",
+      "netease": "https://music.163.com/#/album?id=288119224&uct2=U2FsdGVkX1+2xPSMmO3hlgChdV+AFAZhCCfPf61eIFU=",
+      "applemusic": "https://music.apple.com/cn/album/%E5%BF%83%E6%9C%89%E7%81%B5%E7%8A%80/1845540519",
+      "soundcloud": "https://on.soundcloud.com/CiUDWRwMwTjHwT4rEG"
+    }
+  }
+]

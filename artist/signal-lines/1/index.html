@@ -100,19 +100,23 @@
      box-sizing: border-box;
      /* 减少重绘 */
      will-change: background;
-     
-     /* 桌面端禁止滚动 */
-     @media screen and (min-width: 768px) {
-       overflow: hidden;
-       height: 100vh;
-     }
-     
-     /* 移动端允许滚动 */
-     @media screen and (max-width: 767px) {
-       overflow: auto;
-       height: auto;
-       min-height: 100vh;
-     }
+    }
+    
+    /* 桌面端禁止滚动 */
+    @media screen and (min-width: 768px) {
+      body {
+        overflow: hidden;
+        height: 100vh;
+      }
+    }
+    
+    /* 移动端允许滚动 */
+    @media screen and (max-width: 767px) {
+      body {
+        overflow: auto;
+        height: auto;
+        min-height: 100vh;
+      }
     }
     /* 使用伪元素创建专辑封面模糊背景 - 图片路径将通过JS动态设置 */
     body::before {

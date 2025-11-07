@@ -300,57 +300,39 @@
       // 设置页面标题
       document.title = `${songConfig.artistName} - ${songConfig.songName}`;
       
-      // 使用Canvas处理封面图片，确保标签页图标比例正确
-      function createSquareIcon(imageUrl, size) {
-        return new Promise((resolve) => {
-          const img = new Image();
-          img.crossOrigin = 'anonymous';
-          img.onload = function() {
-            // 创建Canvas并设置为正方形
-            const canvas = document.createElement('canvas');
-            canvas.width = size;
-            canvas.height = size;
-            const ctx = canvas.getContext('2d');
-            
-            // 计算裁剪区域，确保正方形居中
-            const minDim = Math.min(img.width, img.height);
-            const offsetX = (img.width - minDim) / 2;
-            const offsetY = (img.height - minDim) / 2;
-            
-            // 绘制并裁剪为正方形
-            ctx.drawImage(img, offsetX, offsetY, minDim, minDim, 0, 0, size, size);
-            
-            // 转换为Data URL
-            resolve(canvas.toDataURL('image/png'));
-          };
-          img.onerror = function() {
-            // 出错时直接使用原图
-            resolve(imageUrl);
-          };
-          img.src = imageUrl;
-        });
-      }
-      
-      // 设置标签页图标
-      async function setTabIcons() {
+      // 简化设置标签页图标，直接使用封面图片作为favicon
+      function setTabIcons() {
+        // 先检查元素是否存在
         const favicon = document.getElementById('favicon');
         const appleTouchIcon = document.getElementById('apple-touch-icon');
         
-        try {
-          // 创建并设置不同尺寸的图标
-          const faviconUrl = await createSquareIcon(songConfig.coverImage, 32);
-          const appleIconUrl = await createSquareIcon(songConfig.coverImage, 180);
-          
-          favicon.href = faviconUrl;
-          appleTouchIcon.href = appleIconUrl;
-        } catch (error) {
-          // 出错时回退到原始图片
+        // 确保元素存在再设置href属性
+        if (favicon) {
           favicon.href = songConfig.coverImage;
+        }
+        if (appleTouchIcon) {
           appleTouchIcon.href = songConfig.coverImage;
         }
+        
+        // 添加错误处理，确保图片加载成功
+        const testImage = new Image();
+        testImage.onerror = function() {
+          console.warn('标签页图标加载失败，尝试修复路径...');
+          // 尝试使用相对于当前页面的路径
+          const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+          const fixedPath = basePath + '/../../../' + songConfig.coverImage.split('../../')[1];
+          
+          if (favicon) {
+            favicon.href = fixedPath;
+          }
+          if (appleTouchIcon) {
+            appleTouchIcon.href = fixedPath;
+          }
+        };
+        testImage.src = songConfig.coverImage;
       }
       
-      // 执行设置图标
+      // 直接执行设置图标，不再使用异步函数
       setTabIcons();
     });
   </script>

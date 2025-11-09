@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="音乐聚合链接页">
   <meta name="theme-color" content="#0f0f0f">
+  <!-- 导航栏图标 - 使用专辑封面 -->
+  <link rel="icon" href="../../cover/Astral%20Line%205.jpg" type="image/jpeg">
+  <link rel="shortcut icon" href="../../cover/Astral%20Line%205.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="../../cover/Astral%20Line%205.jpg" type="image/jpeg">
   <!-- 根域名重定向逻辑 - 仅在访问根域名时跳转到404页面 -->
     <script>
     // 歌曲信息配置对象
@@ -177,10 +181,10 @@
       <!-- 专辑信息 - 内容将通过JS动态设置 -->
       <div class="p-14 text-center relative z-10" style="background: linear-gradient(to bottom, transparent 0%, rgba(15, 15, 15, 0.8) 30%, rgba(15, 15, 15, 1) 60%); padding-top: 0px; margin-top: -10px;">
         <h1 id="songName" class="text-3xl font-bold text-white mb-3"></h1>
-        <p id="artistName" class="text-gray-300 mb-8"></p>
+        <a id="artistName" href="https://fan.lucetune.com/artist/reian/" class="text-gray-300 mb-8 underline hover:text-purple-400 transition-colors duration-200"></a>
         
         <!-- 分隔线 -->
-        <div class="w-full h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent mb-6 -mt-2"></div>
+        <div class="w-full h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent mb-8 mt-6"></div>
         
         <!-- 平台按钮 -->
         <div class="space-y-5 flex flex-col items-center">

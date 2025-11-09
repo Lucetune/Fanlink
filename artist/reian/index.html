@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>澪暗(Reian) | Lucetune Fan+ Artist</title>
+  <link rel="icon" type="image/jpeg" href="images/reian-avatar.jpg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        screens: {
+          'sm': '640px',
+          'md': '768px',
+          'lg': '1024px',
+          'xl': '1280px',
+        },
+      }
+    }
+  </script>
+  <!-- Font Awesome for social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            primary: '#9333ea',
+            secondary: '#3b82f6',
+            dark: '#121212',
+            darker: '#0a0a0a',
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      .bg-blur {
+        backdrop-filter: blur(8px);
+      }
+      .gradient-border {
+        position: relative;
+        border-radius: 1rem;
+        z-index: 0;
+      }
+      .gradient-border::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        z-index: -1;
+        border-radius: 1.05rem;
+        background: linear-gradient(60deg, rgba(147, 51, 234, 0.5), rgba(59, 130, 246, 0.3), rgba(147, 51, 234, 0.5));
+        background-size: 400% 400%;
+        opacity: 0.7;
+        animation: gradientBorder 15s ease infinite;
+        filter: blur(3px);
+      }
+      @keyframes gradientBorder {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(147, 51, 234, 0.15);
+      }
+      .section-fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.8s ease forwards;
+      }
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+  </style>
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: #121212;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* 背景分割效果 */
+    body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40vh;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    z-index: -1;
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 80% 95%, 60% 98%, 40% 90%, 20% 85%, 0 95%);
+  }
+    
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60vh;
+      background: #121212;
+      z-index: -1;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    .container {
+      width: 100%;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    /* 移动设备优化 */
+    @media (max-width: 640px) {
+      .main-content {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      
+      /* 社交图标在移动设备上稍小 */
+      .social-icon {
+        font-size: 1.5rem !important;
+      }
+      
+      /* 作品卡片在移动设备上优化 */
+      .platform-btn {
+        padding: 1rem !important;
+      }
+      
+      /* 标题在移动设备上稍小 */
+      h1 {
+        font-size: 1.8rem !important;
+      }
+      
+      h2 {
+        font-size: 1.5rem !important;
+      }
+    }
+    
+    /* 触摸设备优化 */
+    @media (hover: none) and (pointer: coarse) {
+      .platform-btn:hover,
+      .social-icon:hover {
+        transform: none;
+      }
+    }
+    
+    /* 平台按钮悬停效果 */
+    .platform-btn {
+      transition: all 0.3s ease;
+    }
+    .platform-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(147, 51, 234, 0.15);
+      border-color: rgba(147, 51, 234, 0.3);
+    }
+    
+    /* 社交图标悬停效果 */
+    .social-icon {
+      transition: all 0.3s ease;
+    }
+    .social-icon:hover {
+      transform: translateY(-3px) scale(1.1);
+      color: #9333ea;
+    }
+    
+    /* 导航栏样式 */
+    .nav-logo {
+      filter: invert(100%) brightness(5);
+    }
+    
+    .nav-link {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 0.5px;
+      background: linear-gradient(to right, #9333ea, #3b82f6);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-white font-sans overflow-x-hidden">
+    
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#121212] to-[#1a1a1a] bg-opacity-90 backdrop-blur-md border-b border-purple-900/20">
+      <div class="flex items-center justify-between h-20 px-6 w-full">
+          <!-- 公司LOGO -->
+          <div class="flex-shrink-0">
+            <a href="/" class="flex items-center">
+              <img src="/assets/images/LUCETUNE_LOGO_BLACK.png" alt="Lucetune Logo" class="h-8 w-auto nav-logo">
+            </a>
+          </div>
+          
+          <!-- 导航链接 - 隐藏 -->
+              <div class="hidden flex items-center space-x-4">
+            <a href="/" class="text-gray-200 px-4 py-3 rounded-md text-base font-medium hover:text-white nav-link">
+              <span data-lang-key="nav.home">首页</span>
+            </a>
+            <a href="#" class="text-gray-200 px-4 py-3 rounded-md text-base font-medium hover:text-white nav-link">
+              <span data-lang-key="nav.artists">艺人</span>
+            </a>
+            <a href="#" class="text-gray-200 px-4 py-3 rounded-md text-base font-medium hover:text-white nav-link">
+              <span data-lang-key="nav.music">音乐</span>
+            </a>
+            <a href="#" class="text-gray-200 px-4 py-3 rounded-md text-base font-medium hover:text-white nav-link">
+              <span data-lang-key="nav.about">关于我们</span>
+            </a>
+          </div>
+            
+            <!-- 语言切换下拉菜单 - 始终在右侧显示 -->
+            <div class="relative">
+            <button id="language-toggle" class="text-white px-4 py-2 rounded-md text-base font-medium flex items-center">
+              <span>CN</span>
+              <i class="fa fa-chevron-down ml-2 text-sm" id="language-arrow"></i>
+            </button>
+            <!-- 下拉菜单内容 -->
+            <div id="language-menu" class="absolute right-0 mt-2 w-20 bg-gray-900 rounded-md shadow-lg z-50 hidden transition-all duration-200">
+              <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-purple-900/50" data-lang="EN">EN</a>
+              <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-purple-900/50" data-lang="CN">CN</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+  <main class="pt-32 pb-6 px-4 md:px-0 main-content relative z-10">
+    <!-- 内容区域 - 优化的渐变边框卡片样式，分为上下两部分 -->
+    <div class="max-w-md md:max-w-lg mx-auto gradient-border" style="width: 95%; margin: 0 auto; transform-origin: top center;">
+      <!-- 上半部分：使用专辑页风格的高级质感设计 -->
+      <div class="rounded-t-xl shadow-lg shadow-slate-900/30 relative z-10 border border-slate-700/20 border-b-0 overflow-hidden" style="height: 300px; background-image: url('images/reian-avatar.jpg'); background-size: cover; background-position: center 70%;">
+        <!-- 半透明渐变叠加层 -->
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/20 to-slate-900/80"></div>
+        
+        <!-- 艺人信息 -->
+        <div class="relative h-full flex flex-col justify-end p-4">
+          <h1 class="text-[clamp(1.5rem,3vw,1.75rem)] md:text-3xl font-bold text-shadow text-white" data-lang-key="artist.name">澪暗</h1>
+          <p class="text-base md:text-lg text-gray-200 mt-2">Reian</p>
+        </div>
+      </div>
+      
+      <!-- 下半部分：保持原有样式 -->
+      <div class="bg-gradient-to-br from-gray-900 to-black bg-opacity-95 rounded-b-xl p-4 shadow-xl relative z-10 border-t-0 border border-gray-800/50">
+        <div class="text-center mb-8 mt-4">
+          <p class="text-base text-gray-300 max-w-sm mx-auto text-left leading-relaxed mt-6" data-lang-key="artist.bio">
+          澪暗（Reian），来自中国的唱片制作人、电子音乐制作人、音游玩家。<br>
+          个人风主义者，善于融合各个流派，创造出独特的快节奏音乐。
+        </p>
+          
+          <!-- 社交媒体链接 - 移至简介段落下方 -->
+          <div class="flex justify-center space-x-6 mt-8">
+            <a href="https://x.com/reian_music" class="social-icon text-2xl text-gray-300 hover:text-primary">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.instagram.com/reian.music/" class="social-icon text-2xl text-gray-300 hover:text-primary">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/@Reian_Music" class="social-icon text-2xl text-gray-300 hover:text-primary">
+              <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61583219436996" class="social-icon text-2xl text-gray-300 hover:text-primary">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="mailto:110reian.music@gmail.com" class="social-icon text-2xl text-gray-300 hover:text-primary">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+        <!-- 最新发行 -->
+        <section class="mb-16 section-fade-in" style="animation-delay: 0.2s;">
+          <!-- 设计感分隔线 -->
+          <div class="relative h-px mb-6 mt-8">
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-primary/30 to-transparent animate-pulse" style="animation-duration: 3s;"></div>
+          </div>
+          <h2 class="text-2xl font-bold mb-10" data-lang-key="section.latestReleases">最新发行</h2>
+          <div class="space-y-4 px-8">
+            <!-- 作品1 - 现代卡片风格，响应式设计 -->
+              <a href="https://fan.lucetune.com/artist/signal-lines/1" target="_blank" class="block relative py-3 px-2 bg-gradient-to-b from-gray-900 to-gray-800/90 backdrop-blur-sm rounded-xl border border-gray-800/70 transition-all duration-300 hover:from-gray-800 hover:to-gray-700 hover:border-gray-700/80 hover:shadow-[0_0_15px_rgba(147,51,234,0.15)] cursor-pointer">
+                <!-- 左右布局容器 - 响应式调整 -->
+                  <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3 md:gap-12 px-4 sm:px-6 py-2">
+                  <!-- 封面图区域 - 左侧，响应式大小 -->
+                    <div class="relative w-38 h-38 sm:w-36 sm:h-36 md:w-36 md:h-36 rounded-lg overflow-hidden shadow-xl bg-black/30 flex-shrink-0 p-1 mx-auto sm:mx-0 mt-2 sm:mt-0">
+                    <img src="/cover/Astral Line 5.jpg" alt="Astral Line" class="w-full h-full object-cover">
+                </div>
+                
+                <!-- 文本信息区域 - 右侧 -->
+                <div class="flex-1">
+                  <!-- 添加顶部内边距使歌曲名向下移动对齐中线 - 响应式调整 -->
+                    <div class="pt-1 sm:pt-7 sm:-ml-2">
+                    <h3 class="font-bold text-white text-lg sm:text-xl md:text-2xl mb-0 transition-colors duration-300">Astral Line</h3>
+                    <div class="text-sm sm:text-base md:text-lg text-gray-300 -mt-1">Single</div>
+                    <div class="flex items-center mt-3 mb-4">
+                        <span class="text-sm text-gray-300" data-lang-key="action.listen">点按聆听</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- 流媒体平台链接 -->
+        <section class="mb-16 section-fade-in" style="animation-delay: 0.4s;">
+          <h2 class="text-2xl font-bold mb-5" data-lang-key="section.followHere">在这里关注</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-6">
+            <!-- 网易云音乐 -->
+            <a href="https://music.163.com/#/artist?id=100547084" target="_blank" class="platform-btn flex items-center p-3 bg-gradient-to-r from-gray-900 to-gray-800 bg-opacity-70 rounded-lg border border-gray-800 hover:from-gray-800 hover:to-gray-700">
+              <div class="w-10 h-10 mr-4 flex-shrink-0">
+                <img src="/assets/svg/neteasecloudmusic.svg" alt="网易云音乐" class="w-full h-full" style="filter: brightness(0) invert(1);">
+              </div>
+              <span class="font-medium transition-colors duration-300" data-lang-key="platform.netease">网易云音乐</span>
+            </a>
+            
+            <!-- QQ音乐 -->
+            <a href="https://y.qq.com/n/ryqq/singer/003FOEeO38Sk2m" target="_blank" class="platform-btn flex items-center p-3 bg-gradient-to-r from-gray-900 to-gray-800 bg-opacity-70 rounded-lg border border-gray-800">
+              <div class="w-10 h-10 mr-4 flex-shrink-0">
+                <img src="/assets/svg/qqMusicIcon.svg" alt="QQ音乐" class="w-full h-full" style="filter: brightness(0) invert(1);">
+              </div>
+              <span class="font-medium transition-colors duration-300" data-lang-key="platform.qq">QQ音乐</span>
+            </a>
+            
+            <!-- Apple Music -->
+            <a href="https://music.apple.com/us/artist/%E6%BE%AA%E6%9A%97/1848854502?" target="_blank" class="platform-btn flex items-center p-3 bg-gradient-to-r from-gray-900 to-gray-800 bg-opacity-70 rounded-lg border border-gray-800">
+              <div class="w-10 h-10 mr-4 flex-shrink-0">
+                <img src="/assets/svg/applemusic.svg" alt="Apple Music" class="w-full h-full" style="filter: brightness(0) invert(1);">
+              </div>
+              <span class="font-medium transition-colors duration-300" data-lang-key="platform.apple">Apple Music</span>
+            </a>
+            
+            <!-- Spotify -->
+            <a href="https://open.spotify.com/artist/25VUU99fG54a6Ef52ijqVc" target="_blank" class="platform-btn flex items-center p-3 bg-gradient-to-r from-gray-900 to-gray-800 bg-opacity-70 rounded-lg border border-gray-800">
+              <div class="w-10 h-10 mr-4 flex-shrink-0">
+                <img src="/assets/svg/spotify.svg" alt="Spotify" class="w-full h-full" style="filter: brightness(0) invert(1);">
+              </div>
+              <span class="font-medium transition-colors duration-300" data-lang-key="platform.spotify">Spotify</span>
+            </a>
+            
+            <!-- Bandcamp -->
+            <a href="https://reian.bandcamp.com/" target="_blank" class="platform-btn flex items-center p-3 bg-gradient-to-r from-gray-900 to-gray-800 bg-opacity-70 rounded-lg border border-gray-800">
+                <div class="w-10 h-10 mr-4 flex-shrink-0">
+                 <img src="/assets/svg/bandcamp.svg" alt="Bandcamp" class="w-full h-full" style="filter: brightness(0) invert(1);">
+                </div>
+                <span class="font-medium transition-colors duration-300" data-lang-key="platform.bandcamp">Bandcamp</span>
+              </a>
+            
+            <!-- SoundCloud -->
+            <a href="https://soundcloud.com/lingan-sc/followers" target="_blank" class="platform-btn flex items-center p-3 bg-gradient-to-r from-gray-900 to-gray-800 bg-opacity-70 rounded-lg border border-gray-800">
+              <div class="w-10 h-10 mr-4 flex-shrink-0">
+                <img src="/assets/svg/soundcloud.svg" alt="SoundCloud" class="w-full h-full" style="filter: brightness(0) invert(1);">
+              </div>
+              <span class="font-medium transition-colors duration-300" data-lang-key="platform.soundcloud">SoundCloud</span>
+            </a>
+          </div>
+        </section>
+
+
+      </div>
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark py-8 mt-12">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0 text-center md:text-left">
+          <h3 class="text-xl font-bold mb-2">Lucetune Fan+</h3>
+          <p class="text-gray-400 text-sm" data-lang-key="footer.service">艺人&厂牌全球数字推广服务</p>
+        </div>
+        <div class="mb-3 text-center md:text-right mt-4 md:mt-0">
+          <h3 class="text-lg font-bold mb-3 text-white md:ml-20" data-lang-key="footer.contact">联系我们</h3>
+          <div class="flex justify-center md:justify-end space-x-5 mt-2">
+          <div class="relative group">
+            <span class="text-gray-400 hover:text-white transition-colors cursor-pointer">
+              <i class="fab fa-weixin text-xl"></i>
+            </span>
+            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 invisible transition-all duration-300 group-hover:opacity-100 group-hover:visible z-[9999]" style="max-width: none !important; width: auto !important;">
+              <img src="../../assets/images/VX_CONTACT_US.jpg?timestamp=901234" alt="微信二维码" class="rounded shadow-lg border-2 border-white" style="width: 200px !important; height: auto !important; max-width: none !important; display: block !important; position: relative !important; z-index: 9999 !important;">
+              <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rotate-45"></div>
+            </div>
+          </div>
+          <a href="mailto:" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fas fa-envelope text-xl"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-twitter text-xl"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-instagram text-xl"></i>
+          </a>
+          </div>
+
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-4 pt-4 text-center text-gray-500 text-sm">
+        <p data-lang-key="footer.copyright">Copyright &copy; 2025 Lucetune.com. All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 语言数据定义
+      const langData = {
+        'CN': {
+          'nav.home': '首页',
+          'nav.artists': '艺人',
+          'nav.music': '音乐',
+          'nav.about': '关于我们',
+          'artist.name': '澪暗',
+          'artist.bio': '澪暗（Reian），来自中国的唱片制作人、电子音乐制作人、音游玩家。<br>个人风主义者，善于融合各个流派，创造出独特的快节奏音乐。',
+          'section.latestReleases': '最新发行',
+          'section.followHere': '在这里关注',
+          'action.listen': '点按聆听',
+          'platform.netease': '网易云音乐',
+          'platform.qq': 'QQ音乐',
+          'platform.apple': 'Apple Music',
+          'platform.spotify': 'Spotify',
+          'platform.bandcamp': 'Bandcamp',
+          'platform.soundcloud': 'SoundCloud',
+          'footer.service': '艺人&厂牌全球数字推广服务',
+          'footer.contact': '联系我们',
+          'footer.copyright': 'Copyright &copy; 2025 Lucetune.com. All Rights Reserved'
+        },
+        'EN': {
+          'nav.home': 'Home',
+          'nav.artists': 'Artists',
+          'nav.music': 'Music',
+          'nav.about': 'About Us',
+          'artist.name': '澪暗',
+          'artist.bio': 'Reian is a Chinese record producer and electronic musician who fuses diverse genres to create energetic, fast-paced sounds inspired by rhythm games.<br>',
+          'section.latestReleases': 'Latest Releases',
+          'section.followHere': 'Follow Here',
+          'action.listen': 'Tap to Listen',
+          'platform.netease': 'NetEase Cloud Music',
+          'platform.qq': 'QQ Music',
+          'platform.apple': 'Apple Music',
+          'platform.spotify': 'Spotify',
+          'platform.bandcamp': 'Bandcamp',
+          'platform.soundcloud': 'SoundCloud',
+          'footer.service': 'Artist & Label Global Digital Promotion Service',
+          'footer.contact': 'Contact Us',
+          'footer.copyright': 'Copyright &copy; 2025 Lucetune.com. All Rights Reserved'
+        }
+      };
+    
+    // 切换页面语言内容 - 完全在当前页面更新，不进行任何跳转
+      function switchLanguage(lang) {
+        console.log('Attempting to switch language to:', lang);
+        
+        // 确保参数有效
+        if (!lang || !langData[lang]) {
+          console.error('Invalid language:', lang);
+          return;
+        }
+        
+        // 更新HTML文档语言属性
+        document.documentElement.lang = lang === 'CN' ? 'zh-CN' : 'en';
+        
+        // 更新页面标题 - 保持"澪暗"不变
+        document.title = '澪暗 - Lucetune';
+        
+        // 更新所有带data-lang-key属性的元素内容
+        document.querySelectorAll('[data-lang-key]').forEach(el => {
+          const key = el.getAttribute('data-lang-key');
+          if (langData[lang] && langData[lang][key]) {
+            console.log('Updating element with key:', key, 'to value:', langData[lang][key]);
+            el.innerHTML = langData[lang][key];
+          }
+        });
+        
+        console.log(`Language switched successfully to: ${lang}`);
+      }
+    
+    // 简单的背景动态效果
+    window.addEventListener('scroll', function() {
+      const scrollPosition = window.scrollY;
+      // 为页面添加滚动时的视差效果
+      document.querySelectorAll('.section-fade-in').forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+        if (isVisible) {
+          section.style.opacity = '1';
+          section.style.transform = 'translateY(0)';
+        }
+      });
+    });
+    
+    // 所有交互功能在DOM加载完成后初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      // 获取所有需要的DOM元素
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const languageToggle = document.getElementById('language-toggle');
+      const languageMenu = document.getElementById('language-menu');
+      const languageArrow = document.getElementById('language-arrow');
+      const mobileLanguageToggle = document.getElementById('mobile-language-toggle');
+      const mobileLanguageMenu = document.getElementById('mobile-language-menu');
+      const mobileLanguageArrow = document.getElementById('mobile-language-arrow');
+      
+      // 初始化隐藏状态
+      if (mobileMenu) mobileMenu.classList.add('hidden');
+      if (languageMenu) languageMenu.classList.add('hidden');
+      if (mobileLanguageMenu) mobileLanguageMenu.classList.add('hidden');
+      
+      // 移动端主菜单切换
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+      
+      // 桌面端语言切换按钮
+      if (languageToggle && languageMenu && languageArrow) {
+        languageToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          languageMenu.classList.toggle('hidden');
+          languageArrow.style.transform = languageMenu.classList.contains('hidden') ? 'rotate(0)' : 'rotate(180deg)';
+        });
+        
+        // 桌面端语言选项点击事件
+        const desktopLangOptions = languageMenu.querySelectorAll('[data-lang]');
+        desktopLangOptions.forEach(option => {
+          option.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const newLang = this.getAttribute('data-lang');
+            console.log('Desktop language option clicked:', newLang);
+            
+            // 更新按钮显示的语言
+            const langSpan = languageToggle.querySelector('span');
+            if (langSpan) {
+              langSpan.textContent = newLang;
+            }
+            
+            // 切换页面语言内容
+            switchLanguage(newLang);
+            
+            // 关闭菜单
+            languageMenu.classList.add('hidden');
+            languageArrow.style.transform = 'rotate(0)';
+          });
+        });
+      }
+      
+      // 移动端语言切换按钮
+      if (mobileLanguageToggle && mobileLanguageMenu && mobileLanguageArrow) {
+        mobileLanguageToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          mobileLanguageMenu.classList.toggle('hidden');
+          mobileLanguageArrow.style.transform = mobileLanguageMenu.classList.contains('hidden') ? 'rotate(0)' : 'rotate(180deg)';
+        });
+        
+        // 移动端语言选项点击事件
+        const mobileLangOptions = mobileLanguageMenu.querySelectorAll('[data-lang]');
+        mobileLangOptions.forEach(option => {
+          option.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const newLang = this.getAttribute('data-lang');
+            console.log('Mobile language option clicked:', newLang);
+            
+            // 更新按钮显示的语言
+            const langSpan = mobileLanguageToggle.querySelector('span');
+            if (langSpan) {
+              langSpan.textContent = newLang;
+            }
+            
+            // 切换页面语言内容
+            switchLanguage(newLang);
+            
+            // 关闭菜单
+            mobileLanguageMenu.classList.add('hidden');
+            mobileLanguageArrow.style.transform = 'rotate(0)';
+          });
+        });
+      }
+      
+      // 点击菜单内容阻止冒泡
+      if (languageMenu) {
+        languageMenu.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+      }
+      
+      if (mobileLanguageMenu) {
+        mobileLanguageMenu.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+      }
+      
+      // 点击外部关闭所有菜单
+      document.addEventListener('click', function(event) {
+        // 关闭移动端主菜单
+        if (mobileMenuButton && mobileMenu && !mobileMenu.classList.contains('hidden') && 
+            !mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+          mobileMenu.classList.add('hidden');
+        }
+        
+        // 关闭桌面端语言菜单
+        if (languageToggle && languageMenu && !languageMenu.classList.contains('hidden') && 
+            !languageToggle.contains(event.target) && !languageMenu.contains(event.target)) {
+          languageMenu.classList.add('hidden');
+          if (languageArrow) {
+            languageArrow.style.transform = 'rotate(0)';
+          }
+        }
+        
+        // 关闭移动端语言菜单
+        if (mobileLanguageToggle && mobileLanguageMenu && !mobileLanguageMenu.classList.contains('hidden') && 
+            !mobileLanguageToggle.contains(event.target) && !mobileLanguageMenu.contains(event.target)) {
+          mobileLanguageMenu.classList.add('hidden');
+          if (mobileLanguageArrow) {
+            mobileLanguageArrow.style.transform = 'rotate(0)';
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
